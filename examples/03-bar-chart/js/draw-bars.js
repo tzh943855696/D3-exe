@@ -66,13 +66,13 @@ async function drawBars() {
       )
 
     // Accessibility
-    wrapper.attr("role", "figure")
-      // Allow the user to tab into our chart
-      .attr("tabindex", "0")  // 0 puts an element in tab flow; -1 takes it out of the tab flow
-      // Append a title so that screen readers can announce what the user is looking at
-      .append("title")
-        .text(`Histogram looking at the distribution of ${metric} in Seattle over the past year`)
-        // Accessibility win! Now when the bins group is highlighted, the screen reader will announce: "histogram bars. List with 15 items."
+    // wrapper.attr("role", "figure")
+    //   // Allow the user to tab into our chart
+    //   .attr("tabindex", "0")  // 0 puts an element in tab flow; -1 takes it out of the tab flow
+    //   // Append a title so that screen readers can announce what the user is looking at
+    //   .append("title")
+    //     .text(`Histogram looking at the distribution of ${metric} in Seattle over the past year`)
+    //     // Accessibility win! Now when the bins group is highlighted, the screen reader will announce: "histogram bars. List with 15 items."
 
     // Create scales
     const xScale = d3
