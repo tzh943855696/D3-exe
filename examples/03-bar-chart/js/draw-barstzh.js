@@ -57,7 +57,7 @@ const drawBars = async () => {
     const barPadding = 1
 
     const barRect = boundGroups.append('rect')
-        .attr('x', (d) => scaleX(d.x0))
+        .attr('x', d => scaleX(d.x0) + barPadding / 2)
         .attr('y', (d) => scaleY(yAccessor(d)))
         .attr('width', (d) => scaleX(d.x1) - scaleX(d.x0) - barPadding)
         .attr('height', (d) => dimensions.boundedHeight - scaleY(yAccessor(d)))
@@ -71,7 +71,28 @@ const drawBars = async () => {
         .style('font-size', '12px')
         .style('text-anchor', 'middle')
     
+    const mean = d3.mean(data, xAccessor)
+    const meanLine = bounds.append('line')
+    .attr('x1', scaleX(mean))
+    .attr('y1', 0)
+    .attr('x2', scaleX(mean))
+    .attr('y2', dimensions.boundedHeight)
+    .attr('stroke', 'black')
+    .attr('stroke-dasharray', '4,4')
+
+    const meanLabel = bounds.append('text')
+        .text('mean')
+        .attr('x', scaleX(mean))
+        .attr('y', -5)
+        .attr('fill', 'black')
+        .style('font-size', '12px')
+        .style('text-anchor', 'middle')
     
+    const xAxisGenerator = d3.axisBottom().scale(scaleX)
+    const xAxis = bounds.append('g').call(xAxisGenerator).attr('transform', `translate(0, ${dimensions.boundedHeight})`)
+    
+    const yAxisGenerator = d3.axisLeft().scale(scaleY)
+    const yAxis = bounds.append('g').call(yAxisGenerator)
     console.log(scaleX.domain(), bins)
 }
 drawBars()
